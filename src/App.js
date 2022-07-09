@@ -24,6 +24,7 @@ class App extends React.Component {
     this.updateTitleOfStudy = this.updateTitleOfStudy.bind(this);
     this.updateDateOfStudy = this.updateDateOfStudy.bind(this);
     this.educationOnSubmit = this.educationOnSubmit.bind(this);
+    this.deleteEduEntry = this.deleteEduEntry.bind(this);
   }
 
   updateInstitution(e) {
@@ -68,6 +69,12 @@ class App extends React.Component {
     })
   }
 
+  deleteEduEntry(e) {
+    this.setState({
+      educationArray: this.state.educationArray.filter((entry) => {return entry.key !== e.target.id})
+    })
+  }
+
   render() {
     const { fullName, email, number, education, educationArray } = this.state;
 
@@ -80,7 +87,6 @@ class App extends React.Component {
             emailOnChange={(e) => this.setState({email: e.target.value})}
             numberOnChange={(e) => this.setState({number: e.target.value})}
           />
-          <h3>Education</h3>
           <EducationForm 
             submit={this.educationOnSubmit}
             institutionOnChange={this.updateInstitution} institutionValue={education.institution}
@@ -96,7 +102,10 @@ class App extends React.Component {
                   <li className="phone">{number}</li>
               </ul>   
           </div>
-          <EducationDisplay educationData={educationArray}/>
+          <EducationDisplay 
+            educationData={educationArray}
+            deleteEducationEntry={this.deleteEduEntry}
+          />
         </div>
       </div>
     );
