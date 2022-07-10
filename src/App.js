@@ -21,10 +21,11 @@ class App extends React.Component {
     }
     this.updateInstitution = this.updateInstitution.bind(this);
     this.updateTitleOfStudy = this.updateTitleOfStudy.bind(this);
-    this.updateTitleOfStudy = this.updateTitleOfStudy.bind(this);
     this.updateDateOfStudy = this.updateDateOfStudy.bind(this);
     this.educationOnSubmit = this.educationOnSubmit.bind(this);
+    this.clearEduFields = this.clearEduFields.bind(this);
     this.deleteEduEntry = this.deleteEduEntry.bind(this);
+    this.editEduEntry = this.editEduEntry.bind(this);
   }
 
   updateInstitution(e) {
@@ -57,6 +58,12 @@ class App extends React.Component {
   educationOnSubmit(e) {
     e.preventDefault()
     this.setState((prevState) => {
+      const editedEducationArray = prevState.educationArray.map((entry) => {
+        if (entry.key === this.state.education.key) {
+          return entry = this.state.education
+        }
+        return entry
+      })
       return {
         education: {
           institution: '',
@@ -64,14 +71,42 @@ class App extends React.Component {
           dateOfStudy: '',
           key: new Date().toString()
         },
-        educationArray: [...prevState.educationArray, this.state.education]
+        educationArray: [...new Set([...editedEducationArray, this.state.education])]
       }
+    })
+  }
+
+  clearEduFields() {
+    this.setState({
+      education: {
+        institution: '',
+        titleOfStudy: '',
+        dateOfStudy: '',
+        key: new Date().toString()
+      },
     })
   }
 
   deleteEduEntry(e) {
     this.setState({
       educationArray: this.state.educationArray.filter((entry) => {return entry.key !== e.target.id})
+    })
+  }
+
+  editEduEntry(e) {
+    this.state.educationArray.map((entry) => {
+      if (entry.key === e.target.className) {
+        return (
+          this.setState({
+            education: {
+              institution: entry.institution,
+              titleOfStudy: entry.titleOfStudy,
+              dateOfStudy: entry.dateOfStudy,
+              key: entry.key
+            }
+          })
+        )
+      }
     })
   }
 
@@ -89,6 +124,7 @@ class App extends React.Component {
           />
           <EducationForm 
             submit={this.educationOnSubmit}
+            clearEducationFields={this.clearEduFields}
             institutionOnChange={this.updateInstitution} institutionValue={education.institution}
             titleOfStudyOnChange={this.updateTitleOfStudy} titleOfStudyValue={education.titleOfStudy}
             dateOfStudyOnChange={this.updateDateOfStudy} dateOfStudyValue={education.dateOfStudy}
@@ -105,6 +141,7 @@ class App extends React.Component {
           <EducationDisplay 
             educationData={educationArray}
             deleteEducationEntry={this.deleteEduEntry}
+            editEducationEntry={this.editEduEntry}
           />
         </div>
       </div>

@@ -15,6 +15,7 @@ class EducationDisplay extends Component {
                             <li>{entry.titleOfStudy}</li>
                             <li>{entry.dateOfStudy}</li>
                             <button type="button" id={entry.key} onClick={this.props.deleteEducationEntry}>Delete</button>
+                            <button type="button" className={entry.key} onClick={this.props.editEducationEntry}>Edit</button>
                         </ul>
                     )
                 })}
