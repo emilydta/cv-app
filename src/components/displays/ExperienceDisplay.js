@@ -6,14 +6,18 @@ class ExperienceDisplay extends Component {
             <div>
                 {this.props.experienceData.map((entry) => {
                     return (
-                        <ul key={entry.key}>
-                            <li>{entry.companyName}</li>
-                            <li>{entry.positionTitle}</li>
-                            <li>{entry.dateOfWork}</li>
-                            <li>{entry.mainTasks}</li>
-                            <button type="button" id={entry.key} onClick={this.props.deleteExperienceEntry}>Delete</button>
-                            <button type="button" className={entry.key} onClick={this.props.editExperienceEntry}>Edit</button>
-                        </ul>
+                        <div key={entry.key} className='experience-display'>
+                            <h4 className='experience-title'>{entry.companyName}</h4>
+                            <ul className='experience-title-date'>
+                                <li>{`${entry.positionTitle}:`}</li>
+                                <li>{entry.dateOfWork}</li>
+                            </ul>
+                            <div className='experience-tasks'>{entry.mainTasks}</div>
+                            <div className='edit-display-buttons'>
+                                <button type="button" id={entry.key} onClick={this.props.deleteExperienceEntry}>Delete</button>
+                                <button type="button" className={entry.key} onClick={this.props.editExperienceEntry}>Edit</button>
+                            </div>
+                        </div>
                     )
                 })}
             </div>

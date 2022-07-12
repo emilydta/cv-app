@@ -1,8 +1,123 @@
-.general-information-form {
+body {
+    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+    overflow: scroll;
+    width: 100%;
+}
+
+.App {
+    height: 100%;
+    width: 100%;
+}
+
+.edit-mode-container {
+    padding-top: 10em;
+    margin-left: 25%;
+    width: 50%;
+    padding-bottom: 5em;
+}
+
+.preview-mode-container {
+    width: 1000px;
+    height: 100vh; 
+    margin-left: 20%;
+    background-color: white;
+    padding: 100px;
+    padding-top: 10em;
+}
+
+.header {
+    position: fixed;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: black;
+    color: white;
+}
+
+input, textarea {
+    border-style: solid;
+    border-radius: 1rem;
+    padding: 0.5em 1em;
+    margin: 0.2em;
+}
+
+button {
+    cursor: pointer;
+    color: white;
+    background-color: black;
+    border: solid black 1px;
+    border-radius: 1rem;
+    padding: 0.3em;
+}
+
+.general-information-form, .education-form, .experience-form {
     display: flex;
     flex-direction: column;
 }
 
-ul {
+.general-information-display {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3em;
+}
+
+.general-information-display>p {
+    margin: 0.2em;
+}
+
+ul, li {
     list-style: none;
+}
+
+.education-title, .experience-title {
+    margin-bottom: 0;
+}
+
+.education-title-date, .experience-title-date {
+    display: flex;
+    margin-top: 0.5em;
+    gap: 1rem;
+}
+
+.education-display, .experience-display {
+    margin-left: 1em;
+}
+
+.experience-tasks {
+    width: 35em;
+}
+
+.display-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.preview-button {
+    color: white;
+    border: solid white 1px;
+    padding: 1em;
+}
+
+.preview-button:hover {
+    background-color: white;
+    color: black;
+    border: black;
+}
+
+.edit-display-buttons>button, .form-buttons>button {
+    margin: 0.5em;
+    width: 6em;
+}
+
+.edit-display-buttons>button:hover, .form-buttons>button:hover {
+    color: black;
+    background-color: white;
+    border: solid black 1px;
 }

@@ -11,21 +11,21 @@ class App extends React.Component {
     super(props)
     this.state = {
       preview: false,
-      fullName: '',
-      email: '',
-      number: '',
+      fullName: 'Bob Bobbson',
+      email: 'bobbobbson@email.com',
+      number: '0123 456 789',
       education: {
-        institution: '',
-        titleOfStudy: '',
-        dateOfStudy: '',
+        institution: 'Example University',
+        titleOfStudy: 'Bachelor of Art',
+        dateOfStudy: '2016-2018',
         key: new Date().toString()
       },
       educationArray: [],
       experience: {
-        companyName: '',
-        positionTitle: '',
-        dateOfWork: '',
-        mainTasks: '',
+        companyName: 'Example Company',
+        positionTitle: 'Example Position',
+        dateOfWork: '2014-current',
+        mainTasks: 'Lorem ipsum dolor sit amet. Eum galisum commodi sit quasi optio et exercitationem repellat quo accusantium excepturi eos dolorem tenetur hic officiis quae a nulla voluptas. ',
         key: Date.now().toString()
       },
       experienceArray: []
@@ -250,6 +250,9 @@ class App extends React.Component {
      
     const editMode = <div className='edit-mode-container'>
       <GeneralInformationForm 
+        nameValue={fullName}
+        emailValue={email}
+        numberValue={number}
         nameOnChange={(e) => this.setState({fullName: e.target.value})}
         emailOnChange={(e) => this.setState({email: e.target.value})}
         numberOnChange={(e) => this.setState({number: e.target.value})}
@@ -274,27 +277,31 @@ class App extends React.Component {
   const previewMode = <div className='preview-mode-container'>
     <div className="general-information-display">
         <h1 className="name-display">{fullName}</h1> 
-        <ul className="email-phone">
-            <li className="email">{email}</li>
-            <li className="phone">{number}</li>
-        </ul>   
+            <p className="email">{email}</p>
+            <p className="phone">{number}</p>  
     </div>
-    <EducationDisplay 
-      educationData={educationArray}
-      deleteEducationEntry={this.deleteEduEntry}
-      editEducationEntry={this.editEduEntry}
-    />
-    <ExperienceDisplay
-    experienceData={experienceArray}
-    deleteExperienceEntry={this.deleteExpEntry}
-    editExperienceEntry={this.editExpEntry}
-    />
+    <div className='display-heading'>
+      <h2>Education</h2>
+      <EducationDisplay 
+        educationData={educationArray}
+        deleteEducationEntry={this.deleteEduEntry}
+        editEducationEntry={this.editEduEntry}
+      />
+      <h2>Experience</h2>
+      <ExperienceDisplay
+      experienceData={experienceArray}
+      deleteExperienceEntry={this.deleteExpEntry}
+      editExperienceEntry={this.editExpEntry}
+      />
+    </div>
 </div>
 
     return (
-      <div className="App">
-        <h1 className='app-title'>CV Maker</h1>
-        <button type="button" onClick={this.previewButton}>{preview ? 'Edit Mode' : 'Preview CV'}</button>
+      <div className="App" style={preview ? {backgroundColor: 'rgb(202, 202, 202)'} : {backgroundColor: 'white'}}>
+        <div className="header">
+          <h1 className='app-title'>CV Maker</h1>
+          <button type="button" className='preview-button' onClick={this.previewButton}>{preview ? 'Edit Mode' : 'Preview CV'}</button>
+        </div>
         {preview ? previewMode : editMode}
       </div>
     );
