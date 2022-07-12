@@ -10,6 +10,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      preview: false,
       fullName: '',
       email: '',
       number: '',
@@ -29,7 +30,8 @@ class App extends React.Component {
       },
       experienceArray: []
     }
-    
+
+    this.previewButton = this.previewButton.bind(this);
     //Education form functions
     this.updateInstitution = this.updateInstitution.bind(this);
     this.updateTitleOfStudy = this.updateTitleOfStudy.bind(this);
@@ -50,6 +52,15 @@ class App extends React.Component {
     this.editExpEntry = this.editExpEntry.bind(this);
   }
 
+  previewButton() {
+    this.setState((prevState) => {
+      return {
+        preview: !prevState.preview
+      }
+    })
+  }
+
+  ///EDUCATION FORM FUNCTIONS
   updateInstitution(e) {
     this.setState({
       education: {
@@ -121,6 +132,7 @@ class App extends React.Component {
       if (entry.key === e.target.className) {
         return (
           this.setState({
+            preview: false,
             education: {
               institution: entry.institution,
               titleOfStudy: entry.titleOfStudy,
@@ -217,6 +229,7 @@ class App extends React.Component {
       if (entry.key === e.target.className) {
         return (
           this.setState({
+            preview: false,
             experience: {
               companyName: entry.companyName,
               positionTitle: entry.positionTitle,
@@ -233,52 +246,56 @@ class App extends React.Component {
 
 
   render() {
-    const { fullName, email, number, education, educationArray, experience, experienceArray} = this.state;
+    const { preview, fullName, email, number, education, educationArray, experience, experienceArray} = this.state;
+     
+    const editMode = <div className='edit-mode-container'>
+      <GeneralInformationForm 
+        nameOnChange={(e) => this.setState({fullName: e.target.value})}
+        emailOnChange={(e) => this.setState({email: e.target.value})}
+        numberOnChange={(e) => this.setState({number: e.target.value})}
+      />
+      <EducationForm 
+        submit={this.educationOnSubmit}
+        clearEducationFields={this.clearEduFields}
+        institutionOnChange={this.updateInstitution} institutionValue={education.institution}
+        titleOfStudyOnChange={this.updateTitleOfStudy} titleOfStudyValue={education.titleOfStudy}
+        dateOfStudyOnChange={this.updateDateOfStudy} dateOfStudyValue={education.dateOfStudy}
+      />  
+      <ExperienceForm 
+        submit={this.experienceOnSubmit}
+        clearExperienceFields={this.clearExpFields} 
+        companyOnChange={this.updateCompany} companyValue={experience.companyName}
+        positionOnChange={this.updatePositionTitle} positionValue={experience.positionTitle}
+        dateOfWorkOnChange={this.updateDateOfWork} dateOfWorkValue={experience.dateOfWork}
+        mainTasksOnChange={this.updateMainTasks} mainTasksValue={experience.mainTasks}
+      />
+  </div>
+
+  const previewMode = <div className='preview-mode-container'>
+    <div className="general-information-display">
+        <h1 className="name-display">{fullName}</h1> 
+        <ul className="email-phone">
+            <li className="email">{email}</li>
+            <li className="phone">{number}</li>
+        </ul>   
+    </div>
+    <EducationDisplay 
+      educationData={educationArray}
+      deleteEducationEntry={this.deleteEduEntry}
+      editEducationEntry={this.editEduEntry}
+    />
+    <ExperienceDisplay
+    experienceData={experienceArray}
+    deleteExperienceEntry={this.deleteExpEntry}
+    editExperienceEntry={this.editExpEntry}
+    />
+</div>
 
     return (
       <div className="App">
-        <div className='edit-mode-container'>
-          <h1 className='app-title'>CV Maker</h1>
-          <GeneralInformationForm 
-            nameOnChange={(e) => this.setState({fullName: e.target.value})}
-            emailOnChange={(e) => this.setState({email: e.target.value})}
-            numberOnChange={(e) => this.setState({number: e.target.value})}
-          />
-          <EducationForm 
-            submit={this.educationOnSubmit}
-            clearEducationFields={this.clearEduFields}
-            institutionOnChange={this.updateInstitution} institutionValue={education.institution}
-            titleOfStudyOnChange={this.updateTitleOfStudy} titleOfStudyValue={education.titleOfStudy}
-            dateOfStudyOnChange={this.updateDateOfStudy} dateOfStudyValue={education.dateOfStudy}
-          />  
-          <ExperienceForm 
-            submit={this.experienceOnSubmit}
-            clearExperienceFields={this.clearExpFields} 
-            companyOnChange={this.updateCompany} companyValue={experience.companyName}
-            positionOnChange={this.updatePositionTitle} positionValue={experience.positionTitle}
-            dateOfWorkOnChange={this.updateDateOfWork} dateOfWorkValue={experience.dateOfWork}
-            mainTasksOnChange={this.updateMainTasks} mainTasksValue={experience.mainTasks}
-          />
-        </div>
-        <div className='preview-mode-container'>
-          <div className="general-information-display">
-              <h1 className="name-display">{fullName}</h1> 
-              <ul className="email-phone">
-                  <li className="email">{email}</li>
-                  <li className="phone">{number}</li>
-              </ul>   
-          </div>
-          <EducationDisplay 
-            educationData={educationArray}
-            deleteEducationEntry={this.deleteEduEntry}
-            editEducationEntry={this.editEduEntry}
-          />
-          <ExperienceDisplay
-          experienceData={experienceArray}
-          deleteExperienceEntry={this.deleteExpEntry}
-          editExperienceEntry={this.editExpEntry}
-          />
-        </div>
+        <h1 className='app-title'>CV Maker</h1>
+        <button type="button" onClick={this.previewButton}>{preview ? 'Edit Mode' : 'Preview CV'}</button>
+        {preview ? previewMode : editMode}
       </div>
     );
   }
