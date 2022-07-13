@@ -1,5 +1,5 @@
 html {
-    background-color: rgb(202, 202, 202);
+    height: 100vh;
 }
 
 body {
@@ -7,6 +7,7 @@ body {
     padding: 0;
     margin: 0;
     width: 100%;
+    background-color: rgb(202, 202, 202);
 }
 
 .App {
@@ -20,8 +21,8 @@ body {
 .edit-mode-container {
     padding-top: 8em;
     width: 50%;
-    height: 100vh;
-    padding-bottom: 5em;
+    height: 100%;
+    padding-bottom: 8em;
 }
 
 .preview-mode-container {
@@ -91,10 +92,6 @@ ul, li {
 
 .education-display, .experience-display {
     margin-left: 1em;
-}
-
-.experience-tasks {
-    width: 35em;
 }
 
 .display-heading {
