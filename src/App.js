@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import GeneralInformationForm from './components/forms/GeneralInformationForm';
 import EducationForm from './components/forms/EducationForm';
 import ExperienceForm from './components/forms/ExperienceForm';
