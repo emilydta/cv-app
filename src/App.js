@@ -69,28 +69,24 @@ const clearGenFields = () => {
   }
 
   const educationOnSubmit = (e) => {
-    e.preventDefault()
-
-    //Checks whether the new entry is already present within educationList, 
-    //and creates a new array which replaces the old entry with the edited entry.
-    const newEducationList = educationList.map(entry => {
-      if (entry.key === educationKey) {
-        return {
-          institution: institution,
-          titleOfStudy: titleOfStudy,
-          dateOfStudy: dateOfStudy,
-          key: educationKey,
-        };
-      } 
-      return entry
-    })
-
-    const index = educationList.findIndex(entry => entry.key === educationKey)
+    e.preventDefault();
+    const index = educationList.findIndex(entry => entry.key === educationKey);
     if (index > -1) {
-      setEducationList(newEducationList)
+      const newEducationList = educationList.map(entry => {
+        if (entry.key === educationKey) {
+          return {
+            institution: institution,
+            titleOfStudy: titleOfStudy,
+            dateOfStudy: dateOfStudy,
+            key: educationKey,
+          };
+        };
+        return entry;
+      })
+      setEducationList(newEducationList);
     } 
     else {
-      setEducationList([...newEducationList, 
+      setEducationList(prevState => [...prevState, 
         {
           institution: institution,
           titleOfStudy: titleOfStudy,
@@ -98,7 +94,7 @@ const clearGenFields = () => {
           key: educationKey,
         }
       ])
-    }   
+    }
     clearEduFields();
   }
 
@@ -132,27 +128,24 @@ const clearGenFields = () => {
   const experienceOnSubmit = (e) => {
     e.preventDefault()
 
-    //Checks whether the new entry is already present within experienceList, 
-    //and creates a new array which replaces the old entry with the edited entry.
-    const newExperienceList = experienceList.map(entry => {
-      if (entry.key === experienceKey) {
-        return {
-          company: company,
-          position: position,
-          dateOfWork: dateOfWork,
-          mainTasks: mainTasks,
-          key: experienceKey,
-        };
-      } 
-      return entry
-    })
-
     const index = experienceList.findIndex(entry => entry.key === experienceKey)
     if (index > -1) {
+      const newExperienceList = experienceList.map(entry => {
+        if (entry.key === experienceKey) {
+          return {
+            company: company,
+            position: position,
+            dateOfWork: dateOfWork,
+            mainTasks: mainTasks,
+            key: experienceKey,
+          };
+        } 
+        return entry
+      })
       setExperienceList(newExperienceList)
     } 
     else {
-      setExperienceList([...newExperienceList, 
+      setExperienceList(prevState => [...prevState, 
         {
           company: company,
           position: position,
@@ -161,7 +154,7 @@ const clearGenFields = () => {
           key: experienceKey,
         }
       ])
-    } 
+    }
     clearExpFields();
   }
 
