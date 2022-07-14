@@ -72,15 +72,15 @@ button {
     flex-direction: column;
 }
 
-/*.general-information-display {
+.general-information-preview {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-bottom: 3em;
-}*/
+}
 
-.general-information-display>p {
+.general-information-preview>p {
     margin: 0.2em;
 }
 

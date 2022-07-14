@@ -6,12 +6,14 @@ import ExperienceForm from './components/forms/ExperienceForm';
 import GeneralInfoDisplay from './components/displays/GeneralInfoDisplay';
 import EducationDisplay from './components/displays/EducationDisplay';
 import ExperienceDisplay from './components/displays/ExperienceDisplay';
+import EducationPreview from './components/previews/EducationPreview';
+import ExperiencePreview from './components/previews/ExperiencePreview';
 
 function App() {
   const [preview, setPreview] = useState(false);
   
   const previewButton = () => {
-    setPreview(prevState => !prevState.preview);
+    setPreview(!preview);
   }
 
 //General Info Section States
@@ -213,13 +215,25 @@ const clearGenFields = () => {
     </div>
   </div>
 
+  const previewMode = <div className='preview-mode-container'>
+    <div className="general-information-preview">
+        <h1 className="name-display">{fullName}</h1> 
+        <p className="email">{email}</p>
+        <p className="phone">{number}</p>  
+    </div>
+    <h3 className='display-heading'>Education</h3>
+    <EducationPreview educationData={educationList}/>
+    <h3 className='display-heading'>Experience</h3>
+    <ExperiencePreview experienceData={experienceList}/>
+  </div>
+
   return (
     <div className="App" style={preview ? {backgroundColor: 'rgb(202, 202, 202)'} : {backgroundColor: 'white'}}>
         <div className="header">
           <h1 className='app-title'>CV Maker</h1>
           <button type="button" className='preview-button' onClick={previewButton}>{preview ? 'Edit Mode' : 'Preview CV'}</button>
         </div>
-        {preview ? null : editMode}
+        {preview ? previewMode : editMode}
       </div>    
   )
 }
