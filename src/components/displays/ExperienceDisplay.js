@@ -7,9 +7,9 @@ class ExperienceDisplay extends Component {
                 {this.props.experienceData.map((entry) => {
                     return (
                         <div key={entry.key} className='experience-display'>
-                            <h4 className='experience-title'>{entry.companyName}</h4>
+                            <h4 className='experience-title'>{entry.position}</h4>
                             <ul className='experience-title-date'>
-                                <li>{`${entry.positionTitle}:`}</li>
+                                <li>{`${entry.company}:`}</li>
                                 <li>{entry.dateOfWork}</li>
                             </ul>
                             <div className='experience-tasks'>{entry.mainTasks}</div>
